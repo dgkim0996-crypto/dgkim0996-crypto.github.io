@@ -372,6 +372,15 @@ ul.list > li::before {
 /* ---------- 이 페이지에서 더한 것 ---------- */
 /* 세로로 긴 앱 화면은 좁게 보여 준다 */
 .shot.narrow { max-width: 420px; }
+/* 수상: 설명 옆에 상장 사진을 작게 */
+.award { display: flex; gap: 28px; align-items: flex-start; }
+.award > div { flex: 1; min-width: 0; }
+.award p { margin: 0 0 8px; }
+.shot.cert { flex: 0 0 190px; border-width: 1px; }
+@media (max-width: 640px) {
+  .award { flex-direction: column; gap: 14px; }
+  .shot.cert { flex: none; width: 200px; }
+}
 /* 작은 비교 표 */
 .mtable { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
 .mtable th, .mtable td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
