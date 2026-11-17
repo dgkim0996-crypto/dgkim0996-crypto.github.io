@@ -419,11 +419,11 @@
         <div class="v">
           <div class="facts">
             <div><b>33</b>PR 작성(32 병합)</div>
-            <div><b>약 6,700</b>줄 화면 도우미 엔진·안내</div>
+            <div><b>약 6,600</b>줄 화면 도우미 엔진(직접 작성분)</div>
             <div><b>16</b>단계 3D 업무 로드맵</div>
             <div><b>2위</b>본선 10팀 중</div>
           </div>
-          <p class="note">팀 전체 규모는 커밋 1,262개, 화면 41개, API 라우트 255개, DB 모델 60개입니다.</p>
+          <p class="note">팀 전체 규모는 커밋 1,278개(develop 기준), 화면 41개, API 라우트 255개, DB 모델 60개입니다.</p>
         </div>
       </div>
 
@@ -436,7 +436,7 @@
 
       <div class="block-title"><h3>설계 포인트</h3></div>
       <div class="row"><div class="k">수주 등록</div><div class="v">채번, 재고 우선 예약, 부족분 생산계획, 작업 로그를 한 트랜잭션으로 묶고, <code>Idempotency-Key</code>로 같은 요청을 두 번 처리하지 않게 했습니다. 원격 DB에서 품목이 많으면 기본 5초 제한을 넘을 수 있어 수주 등록·취소 트랜잭션 제한시간을 30초로 늘렸습니다.</div></div>
-      <div class="row"><div class="k">동시 배정</div><div class="v">같은 LOT을 두 출하요청에 동시에 배정하면 부분 unique 인덱스로 한쪽만 성공하고 다른 쪽은 <code>INV-003</code>으로 거부됩니다.</div></div>
+      <div class="row"><div class="k">동시 배정</div><div class="v">팀 스키마에 있던 부분 unique 인덱스(확정된 LOT은 한 번만 배정)를 전제로 배정 확정 로직을 짰습니다. 확정 전에 이미 배정된 LOT인지 먼저 확인해 <code>INV-003</code>으로 거부하고, 동시에 들어온 요청은 인덱스가 한쪽만 통과시킵니다.</div></div>
       <div class="row"><div class="k">판정 뒤 재고</div><div class="v">
         <p>판정이 바뀐 LOT의 규격별 재고를 적격·가용 LOT 수로 다시 맞춥니다. 여러 번 불러도 결과가 같게 "더하기"가 아니라 "다시 세기"로 만들었습니다.</p>
         <div class="sim" data-sim="reserve">
@@ -493,7 +493,7 @@
           <span class="kind">개인 프로젝트</span>
           <span>2026.10 – 2026.11</span>
           <span>1인: 기획, 백엔드·ML, 프런트엔드, 배포 설계</span>
-          <span class="stack">Python, FastAPI, PostgreSQL, scikit-learn, faster-whisper, Claude API, Vanilla JS, Docker, GCP Cloud Run, GitHub Actions</span>
+          <span class="stack">Python, FastAPI, PostgreSQL, scikit-learn, faster-whisper, Claude API, Vanilla JS, Docker, GitHub Actions, GCP Cloud Run(배포 설계)</span>
         </div>
         <div>
           <h2 class="titled"><span class="mark"><img src="assets/marks/opic.svg" alt="" width="40" height="40"></span><span>OPIc AI 채점 시뮬레이터</span></h2>
@@ -575,7 +575,7 @@
               <li>분량과 레벨이 엇갈리는 학습 답변 90개를 더했습니다.</li>
               <li>"Let me tell you about" 같은 학원식 상투구를 표현 사전 129개로 따로 표시하고, 등급은 자기 말로 한 부분으로 판단하게 했습니다.</li>
             </ul></div></div>
-            <div class="step"><div class="k result">결과</div><div class="v">검증 세트는 개발에 쓰지 않고 마지막에 한 번만 평가했습니다. 길지만 수준 낮은 답변 +1.07 → +0.08, 짧지만 수준 높은 답변 −2.07 → −1.09, 암기 템플릿 답변 +1.39 → +1.11입니다. 사전에 없는 상투구와 짧고 잘한 답변은 아직 약점으로 남겨 README에 적었습니다.</div></div>
+            <div class="step"><div class="k result">결과</div><div class="v">검증 세트는 개발에 쓰지 않고 마지막에 한 번만 평가했습니다. 길지만 수준 낮은 답변 +1.07 → +0.08, 짧지만 수준 높은 답변 −2.07 → −1.09, 암기 템플릿 답변 +1.39 → +1.11입니다(수정 후 값은 저장된 결과 파일과 같고, 수정 전 값은 README에 남긴 당시 측정치입니다). 사전에 없는 상투구와 짧고 잘한 답변은 아직 약점으로 남겨 README에 적었습니다.</div></div>
           </div></div>
         </details>
 
@@ -865,7 +865,7 @@
   </section>
 </main>
 
-<footer class="foot"><div class="wrap">김동건, 2026년 11월 14일 업데이트. 페이지 양식은 <a class="textlink" href="https://donasman.github.io">정건희의 포트폴리오</a>를 바탕으로 했습니다.</div></footer>
+<footer class="foot"><div class="wrap">김동건, 2026년 11월 17일 업데이트. 페이지 양식은 <a class="textlink" href="https://donasman.github.io">정건희의 포트폴리오</a>를 바탕으로 했습니다.</div></footer>
 
 <script src="assets/site.js"></script>
 <script src="assets/motion.js"></script>
